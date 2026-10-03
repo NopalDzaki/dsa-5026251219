@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         problem1();
         System.out.println();
         problem2();
@@ -19,11 +19,10 @@ public class Main {
         problem3();
     }
 
-    private static void problem1() {
+    private static void problem1() throws FileNotFoundException {
         System.out.println("===== problem 1 =====");
         List<String> playlist = new ArrayList<>();
-        try {
-            Scanner scanner = new Scanner(new File("src/lw03/prelab/playlist.txt"));
+        Scanner scanner = new Scanner(new File("src/lw03/prelab/playlist.txt"));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
                 if (line.isEmpty()) continue;
@@ -41,9 +40,6 @@ public class Main {
                 }
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File playlist.txt not found.");
-        }
 
         System.out.println("Total songs: " + playlist.size());
         for (int i = 0; i < playlist.size(); i++) {
@@ -51,12 +47,11 @@ public class Main {
         }
     }
 
-    private static void problem2() {
+    private static void problem2() throws FileNotFoundException {
         System.out.println("===== problem 2 =====");
         Set<String> participants = new LinkedHashSet<>();
         int duplicateCount = 0;
-        try {
-            Scanner scanner = new Scanner(new File("src/lw03/prelab/participants.txt"));
+        Scanner scanner = new Scanner(new File("src/lw03/prelab/participants.txt"));
             while (scanner.hasNextLine()) {
                 String name = scanner.nextLine().trim();
                 if (name.isEmpty()) continue;
@@ -65,9 +60,6 @@ public class Main {
                 }
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File participants.txt not found.");
-        }
 
         System.out.println("Unique participants: " + participants.size());
         int i = 1;
@@ -78,12 +70,11 @@ public class Main {
         System.out.println("Duplicate registrations: " + duplicateCount);
     }
 
-    private static void problem3() {
-        System.out.println("===== Problem 3 =====");
+    private static void problem3() throws FileNotFoundException {
+        System.out.println("===== problem 3 =====");
         Map<String, Integer> inventory = new LinkedHashMap<>();
         int failedSales = 0;
-        try {
-            Scanner scanner = new Scanner(new File("src/lw03/prelab/inventory.txt"));
+        Scanner scanner = new Scanner(new File("src/lw03/prelab/inventory.txt"));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine().trim();
                 if (line.isEmpty()) continue;
@@ -103,9 +94,6 @@ public class Main {
                 }
             }
             scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File inventory.txt not found.");
-        }
 
         for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
