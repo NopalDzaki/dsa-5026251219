@@ -9,7 +9,6 @@ public class Main {
     static int size;
     static String[] names;
 
-    // Adds a two-way walkway (complete, do not change)
     static void addEdge(int from, int to, int minutes) {
         graph[from][to] = minutes;
         graph[to][from] = minutes;
@@ -22,27 +21,27 @@ public class Main {
         queue.add(start);
         visited.add(start);
         while (!queue.isEmpty()) {
-            int current = queue.poll();                  // take the building at the front of the queue
+            int current = queue.poll();                  
             order.add(current);
             for (int next = 0; next < size; next++) {
-                if (graph[current][next] > 0 && !visited.contains(next)) {                          // next is a neighbour that has not been visited
+                if (graph[current][next] > 0 && !visited.contains(next)) {                          
                     visited.add(next);
-                    queue.add(next);                        // put next at the back of the queue
+                    queue.add(next);                        
                 }
             }
         }
         return order;
     }
 
-    static Set<Integer> dfsVisited = new HashSet<>();   // shared by every recursive call of dfs()
-    static List<Integer> dfsOrder = new ArrayList<>();  // shared by every recursive call of dfs()
+    static Set<Integer> dfsVisited = new HashSet<>();   
+    static List<Integer> dfsOrder = new ArrayList<>();  
 
     static void dfs(int current) {
-        dfsVisited.add(current);                                    // mark current as visited
+        dfsVisited.add(current);                                    
         dfsOrder.add(current);
         for (int next = 0; next < size; next++) {
             if (graph[current][next] > 0 && !dfsVisited.contains(next)) {
-                dfs(next);                            // go deeper from next
+                dfs(next);
             }
         }
     }
@@ -58,12 +57,12 @@ public class Main {
 
         for (int i = 0; i < size; i++) {
             int current = findTheNextNode(visited, dist);
-            visited[current] = true;                                // mark current as visited
+            visited[current] = true;
             for (int next = 0; next < size; next++) {
                 int newDist = dist[current] + graph[current][next];
-                if (graph[current][next] > 0 && newDist < dist[next]) {   // the new distance is shorter
+                if (graph[current][next] > 0 && newDist < dist[next]) {
                     dist[next] = newDist;
-                    prev[next] = current;                        // remember that next is reached from current
+                    prev[next] = current;
                 }
             }
         }
@@ -78,12 +77,11 @@ public class Main {
         System.out.println("Total time: " + dist[dest] + " min");
     }
 
-    // Helper of dijkstraAlg(): finds the unvisited building with the smallest distance
     static int findTheNextNode(boolean[] visited, int[] dist) {
         int min = Integer.MAX_VALUE;
         int closest = -1;
         for (int i = 0; i < size; i++) {
-            if (!visited[i] && dist[i] < min) {                          // i is unvisited and closer than min
+            if (!visited[i] && dist[i] < min) {
                 min = dist[i];
                 closest = i;
             }
@@ -91,17 +89,15 @@ public class Main {
         return closest;
     }
 
-    // Helper of dijkstraAlg(): prints the route from start to current
     static void route(int current, int start, int[] prev) {
         if (current == start) {
             System.out.print(names[current]);
         } else {
-            route(prev[current], start, prev);                                // print the route up to the previous building
+            route(prev[current], start, prev);
             System.out.print(" -> " + names[current]);
         }
     }
 
-    // Prints the buildings as A -> B -> C (complete, do not change)
     static void printPath(List<Integer> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.print(names[list.get(i)]);
